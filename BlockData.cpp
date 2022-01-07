@@ -99,6 +99,7 @@ BlockData::BlockData( const char* fn )
     }
 }
 
+// enhance: copy from 0.6 version
 static uint8_t* OpenForWritingPKM(const char* fn, size_t len, const v2i& size, FILE** f, int levels, BlockData::Type type)
 {
     if (levels > 1)
@@ -150,7 +151,7 @@ static uint8_t* OpenForWritingPKM(const char* fn, size_t len, const v2i& size, F
 
 static uint8_t* OpenForWriting( const char* fn, size_t len, const v2i& size, FILE** f, int levels, BlockData::Type type )
 {
-    if (std::string_view(fn).ends_with(".pkm")) return OpenForWritingPKM(fn, len, size, f, levels, type);
+    if (std::string_view(fn).ends_with(".pkm")) return OpenForWritingPKM(fn, len, size, f, levels, type);   // enhance
 
     *f = fopen( fn, "wb+" );
     assert( *f );
@@ -216,7 +217,7 @@ static int AdjustSizeForMipmaps( const v2i& size, int levels )
 
 BlockData::BlockData( const char* fn, const v2i& size, bool mipmap, Type type )
     : m_size( size )
-    , m_dataOffset( 52 )
+    , m_dataOffset(std::string_view(fn).ends_with(".pkm") ? 16 : 52)    // enhance
     , m_maplen( m_size.x*m_size.y/2 )
     , m_type( type )
 {

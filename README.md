@@ -1,3 +1,7 @@
+# enhance by original version #
+
+automatically detect file extension, support PKM 20 format ( 16 bytes header )
+
 # etcpak 0.7 #
 (Updated 2020-05-27)
 
